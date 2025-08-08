@@ -11,3 +11,9 @@ function goto() {
     echo "$dest"
   fi
 }
+then run source ~/.zshrc to reset your cmd line to have the function. 
+usage: 
+	goto alias
+	goto add alias path
+	goto edit alias new_path
+	goto rm alias 
