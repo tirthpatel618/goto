@@ -12,10 +12,12 @@ const configFileName = ".goto.json"
 
 type Bookmarks map[string]string
 
+
 func getConfigPath() string {
 	home, _ := os.UserHomeDir()
 	return filepath.Join(home, configFileName)
 }
+
 
 func loadBookmarks() Bookmarks {
 	path := getConfigPath()
@@ -30,6 +32,7 @@ func loadBookmarks() Bookmarks {
 
 func saveBookmarks(bm Bookmarks) {
 	data, _ := json.MarshalIndent(bm, "", "  ")
+
 	os.WriteFile(getConfigPath(), data, 0644)
 }
 
@@ -51,6 +54,7 @@ func Execute() {
 		bookmarks[args[1]] = args[2]
 		saveBookmarks(bookmarks)
 		fmt.Printf("Added %s → %s\n", args[1], args[2])
+
 
 	case "rm":
 		if len(args) != 2 {
@@ -75,19 +79,20 @@ func Execute() {
 			fmt.Printf("%s → %s\n", name, bookmarks[name])
 		}
 
+
 	case "edit":
 		if len(args) != 3 {
 			fmt.Println("Usage: goto edit <name> <new_path>")
 			return
 		}
-		name, newPath := args[1], args[2]
+		name, editPath := args[1], args[2]
 		if _, ok := bookmarks[name]; !ok {
 			fmt.Printf("Bookmark '%s' does not exist.\n", name)
 			return
 		}
-		bookmarks[name] = newPath
+		bookmarks[name] = editPath
 		saveBookmarks(bookmarks)
-		fmt.Printf("Updated %s → %s\n", name, newPath)
+		fmt.Printf("Updated %s → %s\n", name, editPath)
 	
 
 	default:
