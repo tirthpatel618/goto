@@ -6,25 +6,22 @@ go build -o ~/bin/goto
 
 and then add this into your ~/.zshrc file:
 
+```
 function goto() {
-
   local dest=$(~/bin/goto "$@")
-  
   if [ -d "$dest" ]; then
-  
     cd "$dest"
-	
   else
-  
     echo "$dest"
-	
-  fi
-  
+  fi  
 }
+```
 
+then run
 
+source ~/.zshrc 
 
-then run source ~/.zshrc to reset your cmd line to have the function.
+to reset your cmd line to have the function.
  
 usage:
  
